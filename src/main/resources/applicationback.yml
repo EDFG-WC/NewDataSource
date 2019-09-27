@@ -1,0 +1,64 @@
+spring:
+  profiles:
+    active: debug
+mybatis:
+  type-aliases-package: com.laowang.datasource.beans
+  mapper-locations: classpath:**/xml/*.xml
+---
+#alpha
+spring:
+  profiles: run
+
+server:
+  port: 1000
+
+
+---
+#beta
+spring:
+  profiles: debug
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/spring?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+custom:
+  profiles: debug
+  datasource:
+    names: ds1,ds2
+    ds1:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:33062/spring?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=utf8
+      username: root
+      password: root
+    ds2:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/spring?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=utf8
+      username: root
+      password: 123
+server:
+  port: 8964
+
+
+---
+#dongguan
+spring:
+  profiles: dongguan
+
+server:
+  port: 1002
+---
+#通用区
+spring:
+  profiles: general
+
+server:
+  port: 1002
+---
+#gamma
+spring:
+  profiles: gamma
+
+server:
+  port: 1002
