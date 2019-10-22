@@ -1,18 +1,18 @@
 package com.laowang.datasource.JavaConcurrency.chapter6;
 
-public class ThreadCloseGracefully {
+public class ThreadCloseGracefully2 {
     private static class Worker extends Thread {
-        private volatile boolean start = true;
 
         @Override
         public void run() {
-            while (start) {
-
-            }
-        }
-
-        public void shutdown() {
-            this.start = false;
+             while (true) {
+                 try {
+                     Thread.sleep(1);
+                 } catch (InterruptedException e) {
+                     e.printStackTrace();
+                     break;
+                 }
+             }
         }
     }
 
@@ -24,6 +24,6 @@ public class ThreadCloseGracefully {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        worker.shutdown();
+        worker.interrupt();
     }
 }

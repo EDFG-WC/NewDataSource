@@ -1,18 +1,17 @@
 package com.laowang.datasource.JavaConcurrency.chapter6;
 
-public class ThreadCloseGracefully {
+public class ThreadCloseGracefully3 {
     private static class Worker extends Thread {
-        private volatile boolean start = true;
 
         @Override
         public void run() {
-            while (start) {
-
+            while (true) {
+                if (currentThread().isInterrupted()) {
+                    break;
+                }
             }
-        }
-
-        public void shutdown() {
-            this.start = false;
+            //break意味着循环之外的代码还能够运行, 而return就代表着后面的代码就不会再执行了.
+            System.out.println("hahaha");
         }
     }
 
@@ -24,6 +23,6 @@ public class ThreadCloseGracefully {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        worker.shutdown();
+        worker.interrupt();
     }
 }
