@@ -1,19 +1,20 @@
 package com.laowang.datasource.JavaConcurrency.chapter6;
 
 public class ThreadInterrupt {
-    private static final Object MONITOR = new Object();
-
     public static void main(String[] args) throws InterruptedException {
-        Thread thread = new Thread() {
+        Thread thread1 = new Thread() {
             @Override
             public void run() {
                 while (true) {
-
+                    if (isInterrupted()) {
+                        break;
+                    }
                 }
             }
         };
-        thread.start();
+        thread1.start();
         Thread main = Thread.currentThread();
+        //启动一个新线程去打断thread
         Thread thread2 = new Thread() {
             @Override
             public void run() {
@@ -28,7 +29,7 @@ public class ThreadInterrupt {
         };
         thread2.start();
         try {
-            thread.join();
+            thread1.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

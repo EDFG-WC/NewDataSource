@@ -9,7 +9,7 @@ public class ThreadCloseGracefully2 {
                  try {
                      Thread.sleep(1);
                  } catch (InterruptedException e) {
-                     e.printStackTrace();
+                     System.out.println("线程内打断");
                      break;
                  }
              }
@@ -19,11 +19,11 @@ public class ThreadCloseGracefully2 {
     public static void main(String[] args) {
         Worker worker = new Worker();
         worker.start();
-        try {
+        /*try {
             Thread.sleep(10_000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            System.out.println("线程外打断");
+        }*/
         worker.interrupt();
     }
 }
