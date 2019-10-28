@@ -21,8 +21,4 @@ public class DeadLock {
             System.out.println("m2=========");
         }
     }
-
-    public void setOtherService(OtherService otherService) {
-        this.otherService = otherService;
-    }
 }
