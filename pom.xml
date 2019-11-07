@@ -79,6 +79,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lennart</groupId>
+            <artifactId>cpdetector</artifactId>
+            <version>1.0.4</version>
+        </dependency>
     </dependencies>
 
     <!--build指的是运行环境-->
