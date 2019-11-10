@@ -32,6 +32,7 @@ public class DifferenceBetweenWaitAndSleep {
             try {
                 System.out.println("The thread " + Thread.currentThread().getName() + " enters");
                 LOCK.wait();
+                System.out.println("窝窝头, 一块钱四个!!");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
