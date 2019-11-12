@@ -14,6 +14,7 @@ public class ThreadGroupCreate {
                         System.out.println(getThreadGroup().getName());
                         // 没有指定线程组, 默认的线程组就是main
                         System.out.println(getThreadGroup().getParent());
+                        System.out.println(getThreadGroup().getParent().activeCount());
                         Thread.sleep(10_000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
