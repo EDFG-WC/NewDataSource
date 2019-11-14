@@ -281,6 +281,7 @@ public class SimpleThreadPool extends Thread {
                             state = TaskState.BLOCKED;
                             TASK_QUEUE.wait();
                         } catch (InterruptedException e) {
+                            System.out.println("Task closed.");
                             break OUTER;
                         }
                     }
