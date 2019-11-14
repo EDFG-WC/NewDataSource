@@ -85,12 +85,6 @@
             <artifactId>opencsv</artifactId>
             <version>5.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>lennart</groupId>
-            <artifactId>cpdetector</artifactId>
-            <version>1.0.4</version>
-        </dependency>
     </dependencies>
 
     <!--build指的是运行环境-->
