@@ -125,9 +125,9 @@ public class SimpleThreadPool extends Thread {
                     size = max;
                 }
                 // 任务队列空了之后, 把WorkerTask的对象关闭, 打断, 把线程池的size降低:
-                if (TASK_QUEUE.isEmpty() && size > active) {
-                    System.out.println("=============Reduce=============");
-                    synchronized (TASK_QUEUE) {
+                synchronized (THREAD_QUEUE) {
+                    if (TASK_QUEUE.isEmpty() && size > active) {
+                        System.out.println("=============Reduce=============");
                         int releaseSize = size - active;
                         for (Iterator<WorkerTask> it = THREAD_QUEUE.iterator(); it.hasNext(); ) {
                             if (releaseSize <= 0) {
@@ -139,7 +139,7 @@ public class SimpleThreadPool extends Thread {
                             it.remove();
                             releaseSize--;
                         }
-                        size =active;
+                        size = active;
                     }
                 }
             } catch (InterruptedException e) {
@@ -157,19 +157,22 @@ public class SimpleThreadPool extends Thread {
         while (!TASK_QUEUE.isEmpty()) {
             Thread.sleep(50);
         }
-        int initVal = THREAD_QUEUE.size();
-        while (initVal > 0) {
-            for (WorkerTask task : THREAD_QUEUE) {
-                if (task.getTaskState() == TaskState.BLOCKED) {
-                    task.interrupt();
-                    //把任务状态设置为死亡
-                    task.close();
-                    initVal--;
-                } else {
-                    Thread.sleep(10);
+        synchronized (THREAD_QUEUE) {
+            int initVal = THREAD_QUEUE.size();
+            while (initVal > 0) {
+                for (WorkerTask task : THREAD_QUEUE) {
+                    if (task.getTaskState() == TaskState.BLOCKED) {
+                        task.interrupt();
+                        //把任务状态设置为死亡
+                        task.close();
+                        initVal--;
+                    } else {
+                        Thread.sleep(10);
+                    }
                 }
             }
         }
+        System.out.println(GROUP.activeCount());
         this.destory = true;
         System.out.println("The thread pool disposed.");
     }
@@ -316,8 +319,8 @@ public class SimpleThreadPool extends Thread {
                 System.out.println("The runnable is serviced by " + Thread.currentThread().getName() + " finished.");
             });
         }
-//        Thread.sleep(10_000);
-        // threadPool.shutdown();
-//        threadPool.submit(() -> System.out.println("==============="));
+        Thread.sleep(10_000);
+        threadPool.shutdown();
+        threadPool.submit(() -> System.out.println("==============="));
     }
 }
