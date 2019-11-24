@@ -28,6 +28,7 @@ public class EnumSingleton {
     return Singleton.INSTANCE.getInstance();
   }
 
+  // 测试单例效果:
   public static void main(String[] args) {
     IntStream.rangeClosed(1, 100).forEach(i -> new Thread(String.valueOf(i)) {
       @Override
