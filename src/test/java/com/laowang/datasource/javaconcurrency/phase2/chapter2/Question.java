@@ -5,7 +5,7 @@ public class Question {
   private static final Object LOCK = new Object();
 
   /**
-   * 疑惑: 调用wait方法之后, 线程进入了wait set, 同时释放了synchronized权限, 那么等到notify方法被调用, 再次竞争锁的时候, 是从哪里开始运行呢? 实际上不会从再次争抢到锁的位置运行, 会接着运行下去.
+   * 疑惑: 调用wait方法之后, 线程进入了wait set, 同时释放了synchronized权限, 那么等到notify方法被调用, 再次竞争锁的时候, 是从哪里开始运行呢? 实际上不会从再次争抢到锁的位置运行, 地址恢复机制会让代码从wait的位置接着运行下去.
    */
   private static void work() {
     synchronized (LOCK) {
