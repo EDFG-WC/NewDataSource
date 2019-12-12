@@ -15,11 +15,10 @@ public class SyncInvoker {
         e.printStackTrace();
       }
       return "FINISHED";
-    });
+    }, System.out::println);
     System.out.println("================");
     System.out.println("Do some other stuff.");
     System.out.println("================");
-    System.out.println(future.get());
   }
 }
 
