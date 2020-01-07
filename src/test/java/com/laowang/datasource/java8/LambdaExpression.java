@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import org.apache.commons.collections4.Predicate;
 
 public class LambdaExpression {
@@ -40,6 +39,6 @@ public class LambdaExpression {
 
     Function<Apple, Boolean> function = apple -> apple.getColor().equals("green");
 
-    Supplier<Apple> supplier = Apple::new;
+//    Supplier<Apple> supplier = Apple::new;
   }
 }

@@ -12,9 +12,4 @@ public class Apple {
 
   private String color;
   private long weight;
-
-  @Tolerate
-  public Apple() {
-
-  }
 }
