@@ -9,9 +9,14 @@ import java.util.Optional;
  ***************************************/
 public class Person {
 
-    private Optional<Car> car;
+    /*private Optional<Car> car;
 
     public Optional<Car> getCar() {
         return this.car;
+    }*/
+    private Car car;
+
+    public Car getCar() {
+        return car;
     }
 }
