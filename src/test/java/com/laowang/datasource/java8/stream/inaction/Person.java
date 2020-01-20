@@ -1,4 +1,6 @@
-package com.laowang.datasource.java8.stream;
+package com.laowang.datasource.java8.stream.inaction;
+
+import java.util.Optional;
 
 /***************************************
  * @author:Alex Wang
@@ -6,9 +8,10 @@ package com.laowang.datasource.java8.stream;
  * QQ交流群:286081824
  ***************************************/
 public class Person {
-    private Car car;
 
-    public Car getCar() {
-        return car;
+    private Optional<Car> car;
+
+    public Optional<Car> getCar() {
+        return this.car;
     }
 }
