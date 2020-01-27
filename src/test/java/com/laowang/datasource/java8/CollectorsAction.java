@@ -23,7 +23,6 @@ public class CollectorsAction {
       new Dish("pizza", true, 550, Dish.Type.OTHER),
       new Dish("prawns", false, 300, Dish.Type.FISH),
       new Dish("salmon", false, 450, Dish.Type.FISH));
-
   public static void main(String[] args) {
     testAveragingDouble();
     testAveragingInt();
