@@ -1,4 +1,4 @@
-package com.laowang.datasource.javaconcurrency.phase1.chapter2.Strategy;
+package com.laowang.datasource.javaconcurrency.phase1.chapter2.strategy;
 
 public class TaxCalculator {
 
@@ -6,6 +6,7 @@ public class TaxCalculator {
 
     private final double bonus;
 
+    // 策略接口
     private final CalculatorStrategy calculatorStrategy;
 
     public TaxCalculator(double salary, double bonus, CalculatorStrategy calculatorStrategy) {

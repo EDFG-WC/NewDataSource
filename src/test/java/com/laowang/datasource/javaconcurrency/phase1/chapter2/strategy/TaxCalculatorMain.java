@@ -1,4 +1,4 @@
-package com.laowang.datasource.javaconcurrency.phase1.chapter2.Strategy;
+package com.laowang.datasource.javaconcurrency.phase1.chapter2.strategy;
 
 public class TaxCalculatorMain {
     public static void main(String[] args) {
