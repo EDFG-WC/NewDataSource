@@ -4,7 +4,7 @@ package com.laowang.datasource.java8;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-// 回调功能: 假设我
+// 回调功能: 之前我们自己写得future里面, 有一个问题: 要写一个while循环等待future的结果, 现在我们加入了异步回调功能, 解放当前线程, 让代码在等待线程结果的同时可以执行自己的业务逻辑.
 public class FutureInAction3 {
 
   private static <T> Future<T> invoke(Callable<T> callable) {
@@ -107,7 +107,8 @@ public class FutureInAction3 {
     });
     System.out.println("自己的业务逻辑.");
     // 自己实现的方法里, 没有回调函数的情况下, 想要在future.get()不拿到null, 只能写while循环等.
-    // 有了回调函数之后, future.get()直接调用还是会返回null, 但是我们可以从重写的回调函数里拿到返回值value.
+    // 有了回调函数之后, future.get()直接调用还是会返回null, 但是我们可以从重写的回调函数里拿到返回值value(相当于让completable来通知主线程).
+    // 官方的future.get()也是会阻塞的.
     System.out.println(future.get());
   }
 }
