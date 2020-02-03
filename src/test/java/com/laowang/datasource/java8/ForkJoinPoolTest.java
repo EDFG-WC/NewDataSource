@@ -13,10 +13,10 @@ public class ForkJoinPoolTest {
     ForkJoinPool forkJoinPool = new ForkJoinPool();
     Integer result = forkJoinPool.invoke(task);
     System.out.println("AccumulatorRecursiveTask=> "+result);
-    AccumulatorRecursiveAction action = new AccumulatorRecursiveAction(0,
-        data.length, data);
-    forkJoinPool.invoke(action);
-    System.out.println("AccumulatorRecursiveAction=> "+AccumulatorHelper.getResult());
+//    AccumulatorRecursiveAction action = new AccumulatorRecursiveAction(0,
+//        data.length, data);
+//    forkJoinPool.invoke(action);
+//    System.out.println("AccumulatorRecursiveAction=> "+AccumulatorHelper.getResult());
   }
 
   private static int clac() {
