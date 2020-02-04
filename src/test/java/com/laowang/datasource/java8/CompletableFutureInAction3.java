@@ -1,55 +1,50 @@
 package com.laowang.datasource.java8;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CompletableFutureInAction3 {
 
-  public static void main(String[] args) throws InterruptedException {
-//    AtomicBoolean isFinished = new AtomicBoolean(false);
-//    CompletableFuture<Double> completableFuture = CompletableFuture
-//        .supplyAsync(CompletableFutureInAction1::get);
-//    completableFuture.whenComplete((v, t) -> {
-//      Optional.ofNullable(v).ifPresent(System.out::println);
-//      Optional.ofNullable(t).ifPresent(x -> x.printStackTrace());
-//      isFinished.set(true);
-//    });
-//    System.out.println("=======no block=======");
-//    while (!isFinished.get()) {
-//      Thread.sleep(1);
-//    }
-
-    // 用线程池演进:
-    // 这样是不会退出的, 因为这个线程不是守护线程. 只能用executorService.shutdown();停止
-//    ExecutorService executorService = Executors.newFixedThreadPool(2);
-    //
-    ExecutorService executorService = Executors.newFixedThreadPool(2, r -> {
-      Thread t = new Thread(r);
-      t.setDaemon(true);
-      return t;
-    });
-    executorService.execute(() -> System.out.println("test..."));
-
-    // 二合一
+  public static void main(String[] args) {
     ExecutorService executor = Executors.newFixedThreadPool(2, r -> {
-      Thread t = new Thread(r);
-      t.setDaemon(true);
-      return t;
+      Thread thread = new Thread(r);
+      thread.setDaemon(false);
+      return thread;
     });
-    AtomicBoolean isFinished = new AtomicBoolean(false);
-    CompletableFuture<Double> completableFuture = CompletableFuture
-        .supplyAsync(CompletableFutureInAction1::get, executor);
-    completableFuture.whenComplete((v, t) -> {
-      Optional.ofNullable(v).ifPresent(System.out::println);
-      Optional.ofNullable(t).ifPresent(x -> x.printStackTrace());
-      isFinished.set(true);
-    });
-    System.out.println("=======no block=======");
-    while (!isFinished.get()) {
-      Thread.sleep(1);
+//    CompletableFuture.supplyAsync(CompletableFutureInAction1::get, executor)
+//        .thenApply(CompletableFutureInAction3::multiply)
+//        .whenComplete((v, t) -> Optional.
+//            ofNullable(v).
+//            ifPresent(System.out::println));
+
+    List<Integer> productIDs = Arrays.asList(1, 2, 3, 4, 5);
+    // 整合 completableFuture这个东西用起来就可以不怎么考虑多线程成的问题了.
+    List<Double> collect = productIDs
+        .stream()
+        .map(id -> CompletableFuture.supplyAsync(() -> queryProduct(id), executor))
+        .map(future -> future.thenApply(CompletableFutureInAction3::multiply))
+        .map(CompletableFuture::join)
+        .collect(Collectors.toList());
+    System.out.println(collect);
+  }
+
+  private static double multiply(double value) {
+    try {
+      Thread.sleep(1_000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
+    return value * 10;
+  }
+
+  // 模拟查询, 实际就是休眠若干秒
+  private static double queryProduct(int id) {
+    return CompletableFutureInAction1.get();
   }
 }
