@@ -9,18 +9,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CompletableFutureInAction2 {
 
   public static void main(String[] args) throws InterruptedException {
-//    AtomicBoolean isFinished = new AtomicBoolean(false);
-//    CompletableFuture<Double> completableFuture = CompletableFuture
-//        .supplyAsync(CompletableFutureInAction1::get);
-//    completableFuture.whenComplete((v, t) -> {
-//      Optional.ofNullable(v).ifPresent(System.out::println);
-//      Optional.ofNullable(t).ifPresent(x -> x.printStackTrace());
-//      isFinished.set(true);
-//    });
-//    System.out.println("=======no block=======");
-//    while (!isFinished.get()) {
-//      Thread.sleep(1);
-//    }
+    // 用来存lambda表达式的值的对象:
+    AtomicBoolean isFinished = new AtomicBoolean(false);
+    CompletableFuture<Double> completableFuture = CompletableFuture
+        .supplyAsync(CompletableFutureInAction1::get);
+    completableFuture.whenComplete((v, t) -> {
+      Optional.ofNullable(v).ifPresent(System.out::println);
+      Optional.ofNullable(t).ifPresent(x -> x.printStackTrace());
+      isFinished.set(true);
+    });
+    System.out.println("=======no block=======");
+    while (!isFinished.get()) {
+      Thread.sleep(1);
+    }
 
     // 用线程池演进:
     // 这样是不会退出的, 因为这个线程不是守护线程. 只能用executorService.shutdown();停止
@@ -39,16 +40,16 @@ public class CompletableFutureInAction2 {
       t.setDaemon(true);
       return t;
     });
-    AtomicBoolean isFinished = new AtomicBoolean(false);
-    CompletableFuture<Double> completableFuture = CompletableFuture
+    AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+    CompletableFuture<Double> completableFu = CompletableFuture
         .supplyAsync(CompletableFutureInAction1::get, executor);
-    completableFuture.whenComplete((v, t) -> {
+    completableFu.whenComplete((v, t) -> {
       Optional.ofNullable(v).ifPresent(System.out::println);
       Optional.ofNullable(t).ifPresent(x -> x.printStackTrace());
-      isFinished.set(true);
+      atomicBoolean.set(true);
     });
     System.out.println("=======no block=======");
-    while (!isFinished.get()) {
+    while (!atomicBoolean.get()) {
       Thread.sleep(1);
     }
   }

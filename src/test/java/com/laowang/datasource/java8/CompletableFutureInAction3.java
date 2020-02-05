@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CompletableFutureInAction3 {
 
@@ -17,11 +16,11 @@ public class CompletableFutureInAction3 {
       thread.setDaemon(false);
       return thread;
     });
-//    CompletableFuture.supplyAsync(CompletableFutureInAction1::get, executor)
-//        .thenApply(CompletableFutureInAction3::multiply)
-//        .whenComplete((v, t) -> Optional.
-//            ofNullable(v).
-//            ifPresent(System.out::println));
+    CompletableFuture.supplyAsync(CompletableFutureInAction1::get, executor)
+        .thenApply(CompletableFutureInAction3::multiply)
+        .whenComplete((v, t) -> Optional.
+            ofNullable(v).
+            ifPresent(System.out::println));
 
     List<Integer> productIDs = Arrays.asList(1, 2, 3, 4, 5);
     // 整合 completableFuture这个东西用起来就可以不怎么考虑多线程成的问题了.

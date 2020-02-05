@@ -1,5 +1,7 @@
 package com.laowang.datasource.java8;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -8,29 +10,30 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.util.Date;
 
 // 千言万语一句话 Java 之前那个日期API真的很糟糕
 public class DateTest {
 
   public static void main(String[] args) throws InterruptedException {
-//    // 这个填格林威治时间的注意糟透了
-//    Date date = new Date(116, 2, 18);
-//    System.out.println(date);
-//    // 这个API是线程不安全的, 这么跑肯定出问题.
-//    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//    for (int i = 0; i < 30; i++) {
-//      new Thread(() -> {
-//        for (int x = 0; x < 100; x++) {
-//          Date parseDate = null;
-//          try {
-//            parseDate = sdf.parse("20160505");
-//          } catch (ParseException e) {
-//            e.printStackTrace();
-//          }
-//          System.out.println(parseDate);
-//        }
-//      }).start();
-//    }
+    // 这个填格林威治时间的注意糟透了
+    Date date = new Date(116, 2, 18);
+    System.out.println(date);
+    // 这个API是线程不安全的, 这么跑肯定出问题.
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    for (int i = 0; i < 30; i++) {
+      new Thread(() -> {
+        for (int x = 0; x < 100; x++) {
+          Date parseDate = null;
+          try {
+            parseDate = sdf.parse("20160505");
+          } catch (ParseException e) {
+            e.printStackTrace();
+          }
+          System.out.println(parseDate);
+        }
+      }).start();
+    }
 
     //        testLocalDate();
 //        testLocalTime();
