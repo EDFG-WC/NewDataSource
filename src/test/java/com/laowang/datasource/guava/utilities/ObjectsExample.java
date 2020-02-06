@@ -3,7 +3,7 @@ package com.laowang.datasource.guava.utilities;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class ObjectsTest {
+public class ObjectsExample {
 
   static class Guava {
 
