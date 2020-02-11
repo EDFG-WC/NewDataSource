@@ -55,7 +55,9 @@ public class StringTest {
     assertThat(CharMatcher.javaDigit().matches('x'), equalTo(false));
     // CharMatcher.is('A').countIn("Alex Sharing the Google Guava to Us"), countIn返回的是is()方法里的参数出现在countIn里的次数
     assertThat(CharMatcher.is('A').countIn("Alex Sharing the Google Guava to Us"), equalTo(1));
+    // breakingWhitespace() 用空格分开, 然后用*替代空格
     assertThat(CharMatcher.breakingWhitespace().collapseFrom("      hello Guava     ", '*'), equalTo("*hello*Guava*"));
+    // 没啥用, 感觉限制太多了
     assertThat(CharMatcher.javaDigit().or(CharMatcher.whitespace()).removeFrom("hello 234 world"), equalTo("helloworld"));
     assertThat(CharMatcher.javaDigit().or(CharMatcher.whitespace()).retainFrom("hello 234 world"), equalTo(" 234 "));
   }
