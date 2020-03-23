@@ -13,13 +13,11 @@ public class CommandContext {
     if (StringUtils.isNotBlank(clazz)) {
       try {
         commandStrategy = (CommandStrategy) Class.forName(clazz).newInstance();
-        commandStrategy.process(commandType);
+//        commandStrategy.process(commandType);
       } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
         e.printStackTrace();
       }
     }
     return commandStrategy;
   }
-
-
 }

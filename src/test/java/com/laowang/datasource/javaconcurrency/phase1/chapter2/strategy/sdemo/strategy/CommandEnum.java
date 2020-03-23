@@ -2,7 +2,7 @@ package com.laowang.datasource.javaconcurrency.phase1.chapter2.strategy.sdemo.st
 
 import java.util.HashMap;
 import java.util.Map;
-
+// 通过枚举的方式, 声明出三种不同策略.
 public enum CommandEnum {
   SELECT("select",
       "com.laowang.datasource.javaconcurrency.phase1.chapter2.strategy.sdemo.command.SelectCommand"),
@@ -11,9 +11,10 @@ public enum CommandEnum {
   ABORT("abort",
       "com.laowang.datasource.javaconcurrency.phase1.chapter2.strategy.sdemo.command.AbortCommand");
 
+  // 是不是看起来越来越像是一个普通的JavaBean?
   private final String command;
   private final String clazz;
-
+  // 通过尝试, 枚举不允许public修饰构造函数
   CommandEnum(String command, String clazz) {
     this.command = command;
     this.clazz = clazz;

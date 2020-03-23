@@ -18,7 +18,7 @@ public class CounterIncrement extends Thread {
         Thread.sleep(random.nextInt(1000));
       }
     } catch (InterruptedException e) {
-//      e.printStackTrace();
+      e.printStackTrace();
     } finally { // 2 phases pattern的精髓就在这里: 创建对象之后调用close()方法打断线程, 然后执行finally代码块. 在代码块里可以做一些必要的工作.
       this.clean();
     }

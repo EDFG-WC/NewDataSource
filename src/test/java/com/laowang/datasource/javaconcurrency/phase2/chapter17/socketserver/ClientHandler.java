@@ -1,14 +1,12 @@
-package com.laowang.datasource.javaconcurrency.phase2.chapter17;
+package com.laowang.datasource.javaconcurrency.phase2.chapter17.socketserver;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.*;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable {
+// 接收客户端信息的类:
+@Slf4j public class ClientHandler implements Runnable {
 
   private final Socket socket;
 
@@ -18,11 +16,10 @@ public class ClientHandler implements Runnable {
     this.socket = socket;
   }
 
-  @Override
-  public void run() {
+  @Override public void run() {
     // try-with-resource这个机制非常棒, 写在try后面()里的东西就不用我们自己去关了!!
-    try (InputStream inputStream = socket.getInputStream();
-        OutputStream outputStream = socket.getOutputStream(); // 对于我们来说是out对于计算机来说是in.
+    try (InputStream inputStream = socket.getInputStream(); OutputStream outputStream = socket.getOutputStream();
+        // 对于我们来说是out对于计算机来说是in.
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         PrintWriter printWriter = new PrintWriter(outputStream)) {
       while (running) {
@@ -35,20 +32,24 @@ public class ClientHandler implements Runnable {
         printWriter.flush(); // 刷滑动窗口和管道
       }
     } catch (IOException e) {
-      e.printStackTrace();
-      this.running = true;
+      log.error("some thing wrong :", e);
+    } finally { // 这里体现的就是2-phase termination pattern的地方: 出错了由finally代码块来做关闭.
+      this.stop();
     }
   }
 
   public void stop() {
-    if (running) {
+    log.info("current socket starts to stop.");
+    if (!running) {
       return;
     }
     this.running = false;
     try {
+      // 关闭socket对象
       this.socket.close();
     } catch (IOException e) {
-      System.out.println("current socket failed to close."); //关不了就关不了, 不要了.
+      log.info("current socket failed to close."); //关不了就关不了, 不要了.
     }
+    log.info("current socket stopped.");
   }
 }
