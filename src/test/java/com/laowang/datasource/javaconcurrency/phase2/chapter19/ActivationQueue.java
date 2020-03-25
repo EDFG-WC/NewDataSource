@@ -2,6 +2,9 @@ package com.laowang.datasource.javaconcurrency.phase2.chapter19;
 
 import java.util.LinkedList;
 
+/**
+ * 按顺序保存MethodRequest对象的类
+ */
 public class ActivationQueue {
     private static final int MAX_METHOD_REQUEST_QUEUE_SIZE = 100;
     private final LinkedList<MethodRequest> methodQueue;

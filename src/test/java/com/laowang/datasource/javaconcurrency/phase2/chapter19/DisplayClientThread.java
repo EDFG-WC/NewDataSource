@@ -1,5 +1,8 @@
 package com.laowang.datasource.javaconcurrency.phase2.chapter19;
 
+/**
+ * 发出“显示字符串”请求的线程
+ */
 public class DisplayClientThread extends Thread {
     private final ActiveObject activeObject;
 

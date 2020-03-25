@@ -1,9 +1,12 @@
 package com.laowang.datasource.javaconcurrency.phase2.chapter19;
 
-public class ScheduleThread extends Thread {
+/**
+ * 调用execute方法处理 MethodRequest对象的类
+ */
+public class SchedulerThread extends Thread {
     private final ActivationQueue activationQueue;
 
-    public ScheduleThread(ActivationQueue activationQueue) {
+    public SchedulerThread(ActivationQueue activationQueue) {
         this.activationQueue = activationQueue;
     }
 

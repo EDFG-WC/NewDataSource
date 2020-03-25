@@ -1,7 +1,7 @@
 package com.laowang.datasource.javaconcurrency.phase2.chapter19;
 
 /**
- * 为了对应ActiveObject的每一个方法, 创建了这个抽象类.
+ * 表示请求的抽象类.
  */
 public abstract class MethodRequest {
     protected final Servant servant;

@@ -3,7 +3,7 @@ package com.laowang.datasource.javaconcurrency.phase2.chapter18;
 import java.util.Random;
 
 /**
- * 加工半成品, 从传送带上把产品拿走.
+ * 加工半成品, 从传送带上把产品送走.
  */
 public class WorkerThread extends Thread {
     private final Channel channel;

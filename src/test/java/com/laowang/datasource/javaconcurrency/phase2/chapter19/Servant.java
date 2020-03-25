@@ -16,7 +16,7 @@ class Servant implements ActiveObject {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new TrueResult(new String(buf));
+        return new RealResult(new String(buf));
     }
 
     @Override public void displayString(String text) {

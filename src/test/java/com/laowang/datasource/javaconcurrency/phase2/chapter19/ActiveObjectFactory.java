@@ -1,5 +1,8 @@
 package com.laowang.datasource.javaconcurrency.phase2.chapter19;
 
+/**
+ * 用工厂模式, 创建"主动对象"
+ */
 public final class ActiveObjectFactory {
     private ActiveObjectFactory() {
     }
@@ -7,9 +10,9 @@ public final class ActiveObjectFactory {
     public static ActiveObject createActiveObject() {
         Servant servant = new Servant();
         ActivationQueue queue = new ActivationQueue();
-        ScheduleThread scheduleThread = new ScheduleThread(queue);
-        ActiveObjectProxy proxy = new ActiveObjectProxy(scheduleThread, servant);
-        scheduleThread.start();
+        SchedulerThread schedulerThread = new SchedulerThread(queue);
+        ActiveObjectProxy proxy = new ActiveObjectProxy(schedulerThread, servant);
+        schedulerThread.start();
         return proxy;
     }
 }
