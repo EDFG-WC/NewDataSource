@@ -1,9 +1,12 @@
-package com.laowang.datasource.guava.eventbus.listeners;
+package com.laowang.datasource.guava.eventbus.group3;
 
 import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 继承关系是: AbstractListener(抽象类)-->BaseListener-->ConcreteListener
+ */
 public abstract class AbstractListener {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractListener.class);

@@ -1,4 +1,4 @@
-package com.laowang.datasource.guava.eventbus.events;
+package com.laowang.datasource.guava.eventbus.group4;
 
 public class Apple extends Fruit {
 

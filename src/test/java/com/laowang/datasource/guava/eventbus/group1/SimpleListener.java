@@ -1,9 +1,12 @@
-package com.laowang.datasource.guava.eventbus.listeners;
+package com.laowang.datasource.guava.eventbus.group1;
 
 import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * eventBus的监听/消费方
+ */
 public class SimpleListener {
     // 日志
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleListener.class);

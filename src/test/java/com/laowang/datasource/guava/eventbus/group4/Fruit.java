@@ -1,4 +1,4 @@
-package com.laowang.datasource.guava.eventbus.events;
+package com.laowang.datasource.guava.eventbus.group4;
 
 import com.google.common.base.MoreObjects;
 

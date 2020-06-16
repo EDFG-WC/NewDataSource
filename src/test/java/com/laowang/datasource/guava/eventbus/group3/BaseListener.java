@@ -1,4 +1,4 @@
-package com.laowang.datasource.guava.eventbus.listeners;
+package com.laowang.datasource.guava.eventbus.group3;
 
 import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
