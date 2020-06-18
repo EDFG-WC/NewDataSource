@@ -10,9 +10,10 @@ public class FruitEventBusExample {
         final EventBus eventBus = new EventBus();
         eventBus.register(new FruitEaterListener());
         System.out.println("post the string event.");
-        // post的event是Apple的对象, 这意味着Fruit类的监听器也能监听到
+        // post的event是Apple的对象, 这意味着父类Fruit的监听器也能监听到
         eventBus.post(new Apple("apple"));
         System.out.println("=====================================");
+        // 这个Apple就监听不到
         eventBus.post(new Fruit("Banana"));
     }
 }
