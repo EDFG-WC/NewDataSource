@@ -21,11 +21,21 @@ public class TestMethod {
     node4.setNext(node5);
     node5.setNext(node6);
     node6.setNext(node7);
-    node7.setNext(node3);
   }
 
   @Test
   public void test() {
+    int length = getListLength(head);
 
+
+  }
+
+  private int getListLength(Node head) {
+    int length = 0;
+    while (head != null) {
+      head = head.getNext();
+      length++;
+    }
+    return length;
   }
 }
