@@ -21,9 +21,9 @@ public class ThreadPoolExecutorTask {
                 }
             });
         });
-        // 是一个非阻塞的方法, 会立即返回, 所以shutdown会立即执行.
+        // 是一个非阻塞的方法, 会立即返回, 会立即执行下一行代码
         // executor.execute();
-        // shutdown是一个非阻塞方法, 它的作用是: 1. 工作线程继续工作 2.打断所有空闲线程 3.结束掉所有线程
+        // shutdown是一个非阻塞方法, 它的作用是: 1. 工作线程继续工作, 线程池不再接收新的任务 2.打断所有空闲线程(工作线程结束之后, 被视为空闲线程) 3.结束掉所有线程
         // executor.shutdown();
         // awaitTermination是一个阻塞方法, 参数代表所阻塞的时间, 如果线程池任务执行完毕阻塞结束, 或者超过阻塞时间阻塞也会结束
         // executor.awaitTermination(3, TimeUnit.SECONDS);
