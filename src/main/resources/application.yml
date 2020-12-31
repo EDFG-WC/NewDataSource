@@ -1,6 +1,27 @@
 spring:
   profiles:
     active: debug
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 6000
+    password:
+    pool:
+      max-wait: -1
+      max-idle: 8
+      min-idle: 8
+  kafka:
+    # 消费者
+    consumer:
+      group-id: foo
+      auto-offset-reset: earliest
+      bootstrap-servers: localhost:9092
+    # 生产者
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
 mybatis:
   type-aliases-package: com.laowang.datasource.beans
   mapper-locations: classpath:**/xml/*.xml
@@ -23,18 +44,19 @@ server:
 spring:
   profiles: debug
   datasource:
-    ds1:
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/employees?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=utf8
-      driver-class-name: com.mysql.jdbc.Driver
-      type: com.alibaba.druid.pool.DruidDataSource
-      username: root
-      password: 123
-    ds2:
-      jdbc-url: jdbc:mysql://127.0.0.1:33062/world?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=utf8
-      driver-class-name: com.mysql.jdbc.Driver
-      type: com.alibaba.druid.pool.DruidDataSource
-      username: root
-      password: root
+#    ds1:
+#      jdbc-url: jdbc:mysql://127.0.0.1:3306/employees?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=utf8
+#      driver-class-name: com.mysql.jdbc.Driver
+#      type: com.alibaba.druid.pool.DruidDataSource
+#      username: root
+#      password: 123
+#    ds2:
+#      jdbc-url: jdbc:mysql://127.0.0.1:33062/world?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=utf8
+#      driver-class-name: com.mysql.jdbc.Driver
+#      type: com.alibaba.druid.pool.DruidDataSource
+#      username: root
+#      password: root
+
 
 server:
   port: 8964
