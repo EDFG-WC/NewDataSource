@@ -19,10 +19,10 @@ public class T02_ReentrantLock2 {
 
 	void m1() {
 		try {
+			// lock和unlock方法一定要写在try-finally里, 否则一旦代码报异常, 锁将永远无法被解锁.
 			lock.lock(); //synchronized(this)
 			for (int i = 0; i < 10; i++) {
 				TimeUnit.SECONDS.sleep(1);
-
 				System.out.println(i);
 			}
 		} catch (InterruptedException e) {

@@ -35,7 +35,7 @@ public class T06_01_CompletableFuture {
 
         CompletableFuture.supplyAsync(()->priceOfTM())
                 .thenApply(String::valueOf)
-                .thenApply(str-> "price " + str)
+                .thenApply(str-> "price: " + str)
                 .thenAccept(System.out::println);
 
 

@@ -8,6 +8,7 @@ public class T01_NormalReference {
         m = null;
         System.gc(); //DisableExplicitGC
 
+        // 没有任何意义， 阻塞住方法不结束.
         System.in.read();
     }
 }

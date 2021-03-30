@@ -10,6 +10,7 @@ import java.util.List;
 
 public class T04_VolatileNotSync {
 	volatile int count = 0;
+
 	void m() {
 		for(int i=0; i<10000; i++) count++;
 	}
@@ -23,7 +24,7 @@ public class T04_VolatileNotSync {
 			threads.add(new Thread(t::m, "thread-"+i));
 		}
 		
-		threads.forEach((o)->o.start());
+		threads.forEach(Thread::start);
 		
 		threads.forEach((o)->{
 			try {
@@ -32,12 +33,9 @@ public class T04_VolatileNotSync {
 				e.printStackTrace();
 			}
 		});
-		
+
 		System.out.println(t.count);
-		
-		
 	}
-	
 }
 
 

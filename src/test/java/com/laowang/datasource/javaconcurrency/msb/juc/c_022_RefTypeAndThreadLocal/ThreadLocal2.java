@@ -15,19 +15,11 @@ import java.util.concurrent.TimeUnit;
 public class ThreadLocal2 {
 	//volatile static Person p = new Person();
 	static ThreadLocal<Person> tl = new ThreadLocal<>();
-	
+
 	public static void main(String[] args) {
-				
-		new Thread(()->{
-			try {
-				TimeUnit.SECONDS.sleep(2);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			System.out.println(tl.get());
-		}).start();
-		
+        /**
+         * 这个线程, 我们给tl设置一个值, 但是在第二个线程是拿不到这个值的.
+         */
 		new Thread(()->{
 			try {
 				TimeUnit.SECONDS.sleep(1);
@@ -35,6 +27,15 @@ public class ThreadLocal2 {
 				e.printStackTrace();
 			}
 			tl.set(new Person());
+		}).start();
+
+		new Thread(()->{
+			try {
+				TimeUnit.SECONDS.sleep(2);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(tl.get());
 		}).start();
 	}
 	

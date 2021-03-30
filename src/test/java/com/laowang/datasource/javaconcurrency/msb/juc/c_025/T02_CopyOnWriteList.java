@@ -9,17 +9,15 @@
  */
 package com.laowang.datasource.javaconcurrency.msb.juc.c_025;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class T02_CopyOnWriteList {
 	public static void main(String[] args) {
 		List<String> lists = 
-				//new ArrayList<>(); //�������������⣡
+				//new ArrayList<>(); //这个会出并发问题.
 				//new Vector();
 				new CopyOnWriteArrayList<>();
 		Random r = new Random();

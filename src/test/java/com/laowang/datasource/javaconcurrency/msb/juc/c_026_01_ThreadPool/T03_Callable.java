@@ -1,6 +1,5 @@
 /**
- * ��ʶCallable����Runnable��������չ
- * ��Callable�ĵ��ã������з���ֵ
+ * ��ʶCallable����Runnable��������չ ��Callable�ĵ��ã������з���ֵ
  */
 package com.laowang.datasource.javaconcurrency.msb.juc.c_026_01_ThreadPool;
 
@@ -16,9 +15,8 @@ public class T03_Callable {
         };
 
         ExecutorService service = Executors.newCachedThreadPool();
-        Future<String> future = service.submit(c); //�첽
-
-        System.out.println(future.get());//����
+        Future<String> future = service.submit(c); // 异步
+        System.out.println(future.get());// 阻塞.
 
         service.shutdown();
     }

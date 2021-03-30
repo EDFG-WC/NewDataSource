@@ -35,28 +35,21 @@ public class T03_ReentrantLock3 {
 	}
 
 	/**
-	 * ʹ��tryLock���г�������������������񣬷�����������ִ��
-	 * ���Ը���tryLock�ķ���ֵ���ж��Ƿ�����
-	 * Ҳ����ָ��tryLock��ʱ�䣬����tryLock(time)�׳��쳣������Ҫע��unclock�Ĵ�������ŵ�finally��
+	 * 使用tryLock进行尝试锁定. 不管锁定与否, 方法都将继续执行
+	 * 可以根据tryLock的返回判定是否锁定, 然后执行一些逻辑操作
+	 * 也可以指定tryLock的时间, 使用的时候一定记得用try-finally包裹
 	 */
 	void m2() {
-		/*
-		boolean locked = lock.tryLock();
-		System.out.println("m2 ..." + locked);
-		if(locked) lock.unlock();
-		*/
-		
 		boolean locked = false;
 		
 		try {
-			locked = lock.tryLock(5, TimeUnit.SECONDS);
+			locked = lock.tryLock(2, TimeUnit.SECONDS);
 			System.out.println("m2 ..." + locked);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			if(locked) lock.unlock();
 		}
-		
 	}
 
 	public static void main(String[] args) {

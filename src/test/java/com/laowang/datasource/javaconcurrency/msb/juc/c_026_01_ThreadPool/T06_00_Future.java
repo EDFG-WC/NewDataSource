@@ -15,9 +15,7 @@ public class T06_00_Future {
 		}); //new Callable () { Integer call();}
 		
 		new Thread(task).start();
-		
 		System.out.println(task.get()); //����
-
 
 	}
 }

@@ -5,7 +5,7 @@
 
 package com.laowang.datasource.javaconcurrency.msb.juc.c_007;
 
-public class T {
+public class  T {
 
 	public synchronized void m1() { 
 		System.out.println(Thread.currentThread().getName() + " m1 start...");

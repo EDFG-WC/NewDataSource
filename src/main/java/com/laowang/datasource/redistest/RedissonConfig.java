@@ -17,7 +17,6 @@ public class RedissonConfig {
     private String password = "";
 
     @Bean
-
     public RedissonClient redissonClient() {
 
         Config config = new Config();

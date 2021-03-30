@@ -12,7 +12,7 @@ public class BooleanLock implements Lock {
 
     private Thread currentThread;
 
-    private Collection<Thread> blockedThreadCollection = new ArrayList<>();
+    private final Collection<Thread> blockedThreadCollection = new ArrayList<>();
 
     /**
      * 构造方法
@@ -22,7 +22,7 @@ public class BooleanLock implements Lock {
     }
 
     /**
-     * 用lock方法来拿锁
+     * 用lock方法来拿锁 原理是如果锁可以用(initValue是false), 就直接往下走 如果initValue是true就一直在while循环里等待
      *
      * @throws InterruptedException
      */
@@ -47,27 +47,25 @@ public class BooleanLock implements Lock {
      *
      * @param time
      * @throws InterruptedException
-     * @throws TimeOutExeception
+     * @throws TimeOutException
      */
     @Override
-    public synchronized void lock(long time) throws InterruptedException, TimeOutExeception {
-        if (time <= 0) {
-            lock();
-        }
-        // 这个时间如果小于0, 就抛出TimeOutExeception
+    public synchronized void lock(long time) throws InterruptedException, TimeOutException {
+        // 超时标志: 这个时间如果小于0, 就抛出TimeOutException
         long timeOutFlag = time;
         // 理论上的结束时间
         long endTime = System.currentTimeMillis() + time;
         while (initValue) {
             if (timeOutFlag <= 0) {
-                throw new TimeOutExeception("Time out.");
+                throw new TimeOutException("Time out.");
             }
             blockedThreadCollection.add(Thread.currentThread());
             this.wait(time);
-            //每次都会计算这个时间, 结束时间一旦比当前时间小, 其他线程就不用等待了.
+            // 每次都会计算这个时间, 结束时间一旦比当前时间小, 其他线程就不用等待了.
             timeOutFlag = endTime - System.currentTimeMillis();
         }
         this.initValue = true;
+        // 配合unlockInTime使用 记录当前线程 只允许上锁线程解锁
         this.currentThread = Thread.currentThread();
         // 如果是true的情况下, 当前线程不应该在这个集合中
         blockedThreadCollection.remove(Thread.currentThread());
@@ -78,12 +76,24 @@ public class BooleanLock implements Lock {
      */
     @Override
     public synchronized void unlock() {
+        // 先把初始值置为false
+        this.initValue = false;
+        // 告诉其他所有线程 这个锁可以用了
+        this.notifyAll();
+        Optional.of("Thread " + Thread.currentThread().getName() + " released the lock monitor.")
+            .ifPresent(System.out::println);
+    }
+
+    @Override
+    public void unlockInTime() {
+        // 解决乱释放的问题: 谁加的谁才能释放锁
         if (Thread.currentThread() == currentThread) {
             // 先把初始值置为false
             this.initValue = false;
             // 告诉其他所有线程 这个锁可以用了
             this.notifyAll();
-            Optional.of("Thread " + Thread.currentThread().getName() + " released the lock monitor.").ifPresent(System.out::println);
+            Optional.of("Thread " + Thread.currentThread().getName() + " released the lock monitor.")
+                .ifPresent(System.out::println);
         }
     }
 

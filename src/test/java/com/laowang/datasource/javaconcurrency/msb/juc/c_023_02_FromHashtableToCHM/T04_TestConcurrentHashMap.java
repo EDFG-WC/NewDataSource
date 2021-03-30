@@ -60,7 +60,7 @@ public class T04_TestConcurrentHashMap {
         }
 
         long end = System.currentTimeMillis();
-        System.out.println(end - start);
+        System.out.println("插入数据总耗时: " + (end - start));
 
         System.out.println(m.size());
 
@@ -88,6 +88,6 @@ public class T04_TestConcurrentHashMap {
         }
 
         end = System.currentTimeMillis();
-        System.out.println(end - start);
+        System.out.println("读取数据总耗时: " + (end - start));
     }
 }

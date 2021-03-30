@@ -18,7 +18,6 @@ public class T12_TestExchanger {
 
         }, "t1").start();
 
-
         new Thread(()->{
             String s = "T2";
             try {
@@ -29,7 +28,5 @@ public class T12_TestExchanger {
             System.out.println(Thread.currentThread().getName() + " " + s);
 
         }, "t2").start();
-
-
     }
 }

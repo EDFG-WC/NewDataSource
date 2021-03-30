@@ -5,6 +5,9 @@ public class T03_00_cas {
 
     enum ReadyToRun {T1, T2}
 
+    /**
+     * 不写的话, 保证不了立即可见, 会浪费CPU性能.
+     */
     static volatile ReadyToRun r = ReadyToRun.T1; //思考为什么必须volatile
 
     public static void main(String[] args) {

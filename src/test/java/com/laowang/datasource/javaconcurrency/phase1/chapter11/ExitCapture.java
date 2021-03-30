@@ -4,7 +4,7 @@ public class ExitCapture {
     public static void main(String[] args) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("This app will exit.");
-            notifyAndRelase();
+            notifyAndRelease();
         }));
         int i = 0;
         while (true) {
@@ -20,7 +20,7 @@ public class ExitCapture {
         }
     }
 
-    private static void notifyAndRelase() {
+    private static void notifyAndRelease() {
         System.out.println("Notify to admin.");
         try {
             Thread.sleep(1_000);

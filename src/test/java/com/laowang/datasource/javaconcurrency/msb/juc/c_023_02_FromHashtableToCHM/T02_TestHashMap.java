@@ -21,7 +21,7 @@ public class T02_TestHashMap {
 
     static class MyThread extends Thread {
         int start;
-        int gap = count/THREAD_COUNT;
+        int gap = count / THREAD_COUNT;
 
         public MyThread(int start) {
             this.start = start;
@@ -29,7 +29,7 @@ public class T02_TestHashMap {
 
         @Override
         public void run() {
-            for(int i=start; i<start+gap; i++) {
+            for (int i = start; i < start + gap; i++) {
                 m.put(keys[i], values[i]);
             }
         }
@@ -41,16 +41,15 @@ public class T02_TestHashMap {
 
         Thread[] threads = new Thread[THREAD_COUNT];
 
-        for(int i=0; i<threads.length; i++) {
-            threads[i] =
-            new MyThread(i * (count/THREAD_COUNT));
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new MyThread(i * (count / THREAD_COUNT));
         }
 
-        for(Thread t : threads) {
+        for (Thread t : threads) {
             t.start();
         }
 
-        for(Thread t : threads) {
+        for (Thread t : threads) {
             try {
                 t.join();
             } catch (InterruptedException e) {
@@ -60,6 +59,7 @@ public class T02_TestHashMap {
 
         long end = System.currentTimeMillis();
         System.out.println(end - start);
+        System.out.println("插入数据总耗时: " + (end - start));
 
         System.out.println(m.size());
     }

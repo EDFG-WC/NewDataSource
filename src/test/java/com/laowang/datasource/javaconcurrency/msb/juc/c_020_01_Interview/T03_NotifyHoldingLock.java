@@ -37,10 +37,11 @@ public class T03_NotifyHoldingLock { //wait notify
 		T03_NotifyHoldingLock c = new T03_NotifyHoldingLock();
 		
 		final Object lock = new Object();
-		
+
+		// 先启动观察者线程
 		new Thread(() -> {
 			synchronized(lock) {
-				System.out.println("t2����");
+				System.out.println("t2启动");
 				if(c.size() != 5) {
 					try {
 						lock.wait();
@@ -48,7 +49,7 @@ public class T03_NotifyHoldingLock { //wait notify
 						e.printStackTrace();
 					}
 				}
-				System.out.println("t2 ����");
+				System.out.println("t2结束");
 			}
 			
 		}, "t2").start();
@@ -60,7 +61,7 @@ public class T03_NotifyHoldingLock { //wait notify
 		}
 
 		new Thread(() -> {
-			System.out.println("t1����");
+			System.out.println("t1启动");
 			synchronized(lock) {
 				for(int i=0; i<10; i++) {
 					c.add(new Object());

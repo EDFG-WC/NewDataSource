@@ -20,7 +20,7 @@ public class TicketSeller2 {
 	
 	
 	static {
-		for(int i=0; i<1000; i++) tickets.add("Ʊ ��ţ�" + i);
+		for(int i=0; i<10000; i++) tickets.add("票编号: " + i);
 	}
 	
 	public static void main(String[] args) {
@@ -34,9 +34,7 @@ public class TicketSeller2 {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					
-					
-					System.out.println("������--" + tickets.remove(0));
+					System.out.println("销售了--" + tickets.remove(0));
 				}
 			}).start();
 		}
