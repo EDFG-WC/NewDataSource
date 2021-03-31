@@ -8,18 +8,14 @@ import static java.util.stream.Collectors.toList;
 
 public class ExecutorExample2 {
     public static void main(String[] args) throws InterruptedException {
+        stealingPool();
+    }
+
+    private static void stealingPool() throws InterruptedException {
         /**
          * 号称可以尽可能地调用CPU的多核资源, 它可以自动结束.
-         *
-         * Runtime.getRuntime().availableProcessors(), // 其实就是通过把核心线程数设置为电脑可用核数
-         *
+         * 这个线程池用的是ForkJoinPool, 它的核心线程数是电脑可用核心数(Runtime.getRuntime().availableProcessors())
          * ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-         *
-         * null, // exception handler
-         *
-         * true, // if true, establishes local first-in-first-out scheduling mode for forked tasks that are never
-         * joined. This mode may be more appropriate than default locally stack-based mode in applications in which
-         * worker threads only process event-style asynchronous tasks. For default value, use {@code false}.
          */
         // ExecutorService service = Executors.newWorkStealingPool();
         // Optional.of(Runtime.getRuntime().availableProcessors()).ifPresent(System.out::println);
@@ -51,5 +47,4 @@ public class ExecutorExample2 {
             e.printStackTrace();
         }
     }
-
 }

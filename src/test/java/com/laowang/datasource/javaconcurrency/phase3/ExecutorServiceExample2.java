@@ -14,14 +14,23 @@ public class ExecutorServiceExample2 {
         ThreadPoolExecutor executor = testCallerRun();
         // 等待1s, 确定不发生指令重排, 让这3个任务进入线程池
         TimeUnit.SECONDS.sleep(1);
-        executor.execute(() -> {
-            System.out.println(Thread.currentThread().getName());
-            System.out.println("x");
-        });
+
+        /*for (int i = 0; i < 10; i++) {
+            executor.execute(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName() + " 额外做事");
+            });
+        }*/
     }
 
     /**
      * 超过maxSize+ queueSize的线程会直接被抛弃, 然后直接报异常, 已经提交的正常执行
+     * 
+     * @return executor
      */
     private static ThreadPoolExecutor testAbort() {
         ThreadPoolExecutor executor =
@@ -45,14 +54,11 @@ public class ExecutorServiceExample2 {
     /**
      * 超过max+queueSize的直接拒绝 没有任何提示
      * 
-     * @return
+     * @return executor
      */
     private static ThreadPoolExecutor testDiscard() {
-        ThreadPoolExecutor executor =
-            new ThreadPoolExecutor(1, 2, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1), r -> {
-                Thread t = new Thread(r);
-                return t;
-            }, new ThreadPoolExecutor.DiscardPolicy());
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 2, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1),
+            Thread::new, new ThreadPoolExecutor.DiscardPolicy());
 
         for (int i = 0; i < 3; i++) {
             executor.execute(() -> {
@@ -69,19 +75,17 @@ public class ExecutorServiceExample2 {
     /**
      * 超出的任务会由调用execute的线程来执行
      * 
-     * @return
+     * @return executor
      */
     private static ThreadPoolExecutor testCallerRun() {
-        ThreadPoolExecutor executor =
-            new ThreadPoolExecutor(1, 2, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1), r -> {
-                Thread t = new Thread(r);
-                return t;
-            }, new ThreadPoolExecutor.CallerRunsPolicy());
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 2, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(8),
+            Thread::new, new ThreadPoolExecutor.CallerRunsPolicy());
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             executor.execute(() -> {
                 try {
-                    TimeUnit.SECONDS.sleep(100);
+                    TimeUnit.SECONDS.sleep(10);
+                    System.out.println(Thread.currentThread().getName() + " 出来做事");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

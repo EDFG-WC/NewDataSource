@@ -9,12 +9,16 @@ import java.util.stream.IntStream;
  *
  * 调用了shutdown方法的线程池还能再添加任务吗? 答案是no.
  */
+
+/**
+ * 检测shutdown方法的逻辑
+ */
 public class ExecutorServiceExample1 {
     public static void main(String[] args) throws InterruptedException {
-        // isShutDown();
+        isShutDown();
         // isTerminated();
         // executeRunnableError();
-        executeRunnableTask();
+        // executeRunnableTask();
     }
 
     private static void isShutDown() {
@@ -33,6 +37,7 @@ public class ExecutorServiceExample1 {
         service.execute(() -> {
             System.out.println("能看到就说明shutdown()之后还能添加任务 ");
         });
+        // 事实是没看到
     }
 
     private static void isTerminated() {
@@ -51,7 +56,7 @@ public class ExecutorServiceExample1 {
     }
 
     /**
-     * 此时我们看到, 异常被跑出, 主程序执行到底.
+     * 此时我们看到, 异常被抛出, 主程序执行到底.
      *
      * @throws InterruptedException
      */
