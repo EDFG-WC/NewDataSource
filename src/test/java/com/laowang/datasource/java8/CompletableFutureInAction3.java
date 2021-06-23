@@ -23,7 +23,7 @@ public class CompletableFutureInAction3 {
             ifPresent(System.out::println));
 
     List<Integer> productIDs = Arrays.asList(1, 2, 3, 4, 5);
-    // 整合 completableFuture这个东西用起来就可以不怎么考虑多线程成的问题了.
+    // 整合 completableFuture这个东西用起来就可以不怎么考虑多线程的问题了.
     List<Double> collect = productIDs
         .stream()
         .map(id -> CompletableFuture.supplyAsync(() -> queryProduct(id), executor))
